@@ -1,0 +1,22 @@
+{
+  "name": "@risecorejs/only",
+  "version": "1.0.0",
+  "description": "",
+  "main": "middleware.js",
+  "dependencies": {
+    "flat": "^5.0.2"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/risecorejs/only.git"
+  },
+  "author": "Amenov Abdulsalam <risecorejs@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/risecorejs/only/issues"
+  },
+  "homepage": "https://github.com/risecorejs/only#readme"
+}
