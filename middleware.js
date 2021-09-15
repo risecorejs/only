@@ -1,14 +1,12 @@
 const flat = require('flat')
 
 module.exports = () => (req, res, next) => {
-  req.only = (...keys) => only(req.body, keys)
+  req.only = (keys, emptyResult) => only(req.body, keys, emptyResult)
 
   next()
 }
 
-function only(requestData, keys) {
-  if (Array.isArray(keys[0])) keys = keys[0]
-
+function only(requestData, keys, emptyResult = null) {
   const flatRequestData = flat.flatten(requestData, { safe: true })
   const flatKeys = []
 
@@ -38,5 +36,5 @@ function only(requestData, keys) {
 
   const siftedRequestData = flat.unflatten(siftedFlatRequestData)
 
-  return Object.keys(siftedRequestData).length ? siftedRequestData : null
+  return Object.keys(siftedRequestData).length ? siftedRequestData : emptyResult
 }
