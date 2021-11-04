@@ -1,40 +1,23 @@
-const flat = require('flat')
+const only = require('./only')
 
-module.exports = () => (req, res, next) => {
-  req.only = (keys, emptyResult) => only(req.body, keys, emptyResult)
+module.exports = () => main
+
+/**
+ * MAIN
+ * @param req {Object}
+ * @param res {Object}
+ * @param next {Function}
+ */
+function main(req, res, next) {
+  req.only = (...args) => {
+    const arg1 = args[0]
+    const arg1IsArray = Array.isArray(arg1)
+
+    const keys = arg1IsArray ? arg1 : args
+    const plug = arg1IsArray ? args[1] : void 0
+
+    return only(req.body, keys, plug)
+  }
 
   next()
-}
-
-function only(requestData, keys, emptyResult = null) {
-  const flatRequestData = flat.flatten(requestData, { safe: true })
-  const flatKeys = []
-
-  function flattenKeys(keys, prevKey = '') {
-    for (const key of keys) {
-      if (typeof key === 'string') {
-        flatKeys.push(prevKey ? `${prevKey}.${key}` : key)
-      } else {
-        for (const [_key, _keys] of Object.entries(key)) {
-          flattenKeys(_keys, prevKey ? `${prevKey}.${_key}` : _key)
-        }
-      }
-    }
-  }
-
-  flattenKeys(keys)
-
-  const siftedFlatRequestData = {}
-
-  for (const flatKey of flatKeys) {
-    const value = flatRequestData[flatKey]
-
-    if (value !== undefined) {
-      siftedFlatRequestData[flatKey] = value
-    }
-  }
-
-  const siftedRequestData = flat.unflatten(siftedFlatRequestData)
-
-  return Object.keys(siftedRequestData).length ? siftedRequestData : emptyResult
 }
