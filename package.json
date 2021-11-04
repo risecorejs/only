@@ -1,6 +1,6 @@
 {
   "name": "@risecorejs/only",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "middleware.js",
   "dependencies": {
