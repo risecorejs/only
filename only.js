@@ -11,6 +11,9 @@ module.exports = main
  */
 function main(requestData, keys, plug) {
   const flatRequestData = flat.flatten(requestData, { safe: true })
+
+  Object.assign(flatRequestData, requestData)
+
   const flatKeys = flattenKeys(keys)
 
   const siftedFlatRequestData = {}
@@ -24,7 +27,7 @@ function main(requestData, keys, plug) {
   const setSiftedFlatRequestData = (flatKey, callback) => {
     const value = flatRequestData[flatKey]
 
-    const _value = callback ? callback(value) : value
+    const _value = callback ? callback(value, main) : value
 
     if (_value !== void 0) {
       siftedFlatRequestData[flatKey] = _value
