@@ -8,7 +8,7 @@ module.exports = only
  * ONLY
  * @param body {Object}
  * @param keys {any[]}
- * @returns {Object}
+ * @returns {null|Object}
  */
 function only(body, keys) {
   const fields = {}
