@@ -1,9 +1,9 @@
-const only = require('./only')
+const only = require('./index')
 
-const requestData = {
+const body = {
   name: 'Abdulsalam',
   email: 'risecorejs@gmail.com',
-  age: 1998,
+  birthday: 1998,
   array: [1, 2, 3],
   address: {
     country: 'Kazakhstan',
@@ -15,20 +15,20 @@ const requestData = {
     }
   },
   object: {
-    '1': 'a',
-    '2': 'b',
-    '3': 'c',
+    1: 'a',
+    2: 'b',
+    3: 'c'
   }
 }
 
-const result = only(requestData, [
+const result = only(body, [
   'name',
-  'email',
-  { age: (val) => new Date().getFullYear() - val },
+  { email: (val) => val },
+  { age: () => new Date().getFullYear() - body.birthday },
   'array',
   'address.country',
-  { address: ['city'] },
-  'a.b.c', // or { a: [{ b: ['c'] }] },
+  'address.city',
+  { a: [{ b: ['c'] }] }, // 'a.b.c'
   'object'
 ])
 

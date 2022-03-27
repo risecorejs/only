@@ -1,22 +1,12 @@
-const only = require('./only')
+const only = require('./index')
 
-module.exports = () => main
+module.exports = () => (req, res, next) => {
+  req.only = (...keys) => {
+    if (Array.isArray(keys)) {
+      keys = keys[0]
+    }
 
-/**
- * MAIN
- * @param req {Object}
- * @param res {Object}
- * @param next {Function}
- */
-function main(req, res, next) {
-  req.only = (...args) => {
-    const arg1 = args[0]
-    const arg1IsArray = Array.isArray(arg1)
-
-    const keys = arg1IsArray ? arg1 : args
-    const plug = arg1IsArray ? args[1] : void 0
-
-    return only(req.body, keys, plug)
+    return only(req.body, keys)
   }
 
   next()
