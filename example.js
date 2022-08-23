@@ -6,7 +6,7 @@ const only = require('./index')
 printVariant(0, [], true)
 
 // VARIANT-1
-printVariant(0, ['name', 'tel', 'email', 'address', 'birthday'], true)
+printVariant(1, ['name', 'tel', 'email', 'address', 'birthday'], true)
 
 // VARIANT-2
 printVariant(
