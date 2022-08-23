@@ -62,7 +62,7 @@ function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsIn
  * GET-VALUE-BY-BODY-KEY
  * @param body {FieldsInterface}
  * @param key {string}
- * @return {Result}
+ * @return {ResultInterface}
  */
 function getValueByBodyKey(body: FieldsInterface, key: string): ResultInterface {
   const result: ResultInterface = {
