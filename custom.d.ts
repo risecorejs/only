@@ -1,5 +1,5 @@
 declare namespace Express {
   export interface Request {
-    only(keys: any[]): any
+    only(...keys: any[]): any
   }
 }
