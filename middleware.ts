@@ -10,7 +10,7 @@ export = main
  */
 function main(): express.Handler {
   return function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    req.only = (...keys: any[]) => {
+    req.only = (...keys: (string | object)[]) => {
       if (Array.isArray(keys[0])) {
         keys = keys[0]
       }
