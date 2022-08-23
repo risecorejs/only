@@ -52,7 +52,7 @@ function main(body, keys) {
  * GET-VALUE-BY-BODY-KEY
  * @param body {FieldsInterface}
  * @param key {string}
- * @return {Result}
+ * @return {ResultInterface}
  */
 function getValueByBodyKey(body, key) {
     const result = {
