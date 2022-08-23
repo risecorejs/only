@@ -4,14 +4,15 @@ import _ from 'lodash'
 
 import { FieldsInterface, ResultInterface } from './interfaces'
 
-export = only
+export = main
 
 /**
- * ONLY
+ * MAIN
  * @param body: {FieldsInterface},
  * @param keys: {(string | object)[]}
+ * @return {null | FieldsInterface}
  */
-function only(body: FieldsInterface, keys: (string | object)[]): FieldsInterface | null {
+function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsInterface {
   const fields: FieldsInterface = {}
 
   for (const key of keys) {
@@ -47,7 +48,7 @@ function only(body: FieldsInterface, keys: (string | object)[]): FieldsInterface
           const { has } = getValueByBodyKey(body, _key)
 
           if (has) {
-            fields[_key] = only(body[_key], keysOrFormatter)
+            fields[_key] = main(body[_key], keysOrFormatter)
           }
         }
       }
@@ -61,7 +62,7 @@ function only(body: FieldsInterface, keys: (string | object)[]): FieldsInterface
  * GET-VALUE-BY-BODY-KEY
  * @param body {FieldsInterface}
  * @param key {string}
- * @return Result
+ * @return {Result}
  */
 function getValueByBodyKey(body: FieldsInterface, key: string): ResultInterface {
   const result: ResultInterface = {
