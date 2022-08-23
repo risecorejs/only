@@ -6,11 +6,12 @@ const merge_1 = __importDefault(require("merge"));
 const flat_1 = __importDefault(require("flat"));
 const lodash_1 = __importDefault(require("lodash"));
 /**
- * ONLY
+ * MAIN
  * @param body: {FieldsInterface},
  * @param keys: {(string | object)[]}
+ * @return {null | FieldsInterface}
  */
-function only(body, keys) {
+function main(body, keys) {
     const fields = {};
     for (const key of keys) {
         if (typeof key === 'string') {
@@ -39,7 +40,7 @@ function only(body, keys) {
                 else if (Array.isArray(keysOrFormatter)) {
                     const { has } = getValueByBodyKey(body, _key);
                     if (has) {
-                        fields[_key] = only(body[_key], keysOrFormatter);
+                        fields[_key] = main(body[_key], keysOrFormatter);
                     }
                 }
             }
@@ -51,7 +52,7 @@ function only(body, keys) {
  * GET-VALUE-BY-BODY-KEY
  * @param body {FieldsInterface}
  * @param key {string}
- * @return Result
+ * @return {Result}
  */
 function getValueByBodyKey(body, key) {
     const result = {
@@ -63,4 +64,4 @@ function getValueByBodyKey(body, key) {
     }
     return result;
 }
-module.exports = only;
+module.exports = main;

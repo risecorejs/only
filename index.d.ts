@@ -1,8 +1,9 @@
 import { FieldsInterface } from './interfaces';
-export = only;
+export = main;
 /**
- * ONLY
+ * MAIN
  * @param body: {FieldsInterface},
  * @param keys: {(string | object)[]}
+ * @return {null | FieldsInterface}
  */
-declare function only(body: FieldsInterface, keys: (string | object)[]): FieldsInterface | null;
+declare function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsInterface;
