@@ -2,7 +2,13 @@ import express from 'express'
 
 import only from './index'
 
-export = function () {
+export = main
+
+/**
+ * MAIN
+ * @return {express.Handler}
+ */
+function main(): express.Handler {
   return function (req: express.Request, res: express.Response, next: express.NextFunction) {
     req.only = (...keys: any[]) => {
       if (Array.isArray(keys[0])) {

@@ -3,7 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const index_1 = __importDefault(require("./index"));
-module.exports = function () {
+/**
+ * MAIN
+ * @return {express.Handler}
+ */
+function main() {
     return function (req, res, next) {
         req.only = (...keys) => {
             if (Array.isArray(keys[0])) {
@@ -13,4 +17,5 @@ module.exports = function () {
         };
         next();
     };
-};
+}
+module.exports = main;
