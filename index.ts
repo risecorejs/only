@@ -2,36 +2,27 @@ import merge from 'merge'
 import flat from 'flat'
 import _ from 'lodash'
 
-import { FieldsInterface, ResultInterface } from './interfaces'
+import { IFields, IResult } from './interfaces'
+import { TKeys } from './types'
 
 export = main
 
 /**
  * MAIN
- * @param body: {FieldsInterface},
- * @param keys: {(string | object)[]}
- * @return {null | FieldsInterface}
+ * @param body: {IFields},
+ * @param keys: {TKeys}
+ * @return {null | IFields}
  */
-function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsInterface {
-  const fields: FieldsInterface = {}
+function main(body: IFields, keys: TKeys): null | IFields {
+  const fields: IFields = {}
 
   for (const key of keys) {
     if (typeof key === 'string') {
       if (key.includes('.')) {
-        const { has, value } = getValueByBodyKey(
-          {
-            [key]: eval('body.' + key.replaceAll('.', '?.'))
-          },
-          key
-        )
+        const { has, value } = getValueByBodyKey({ [key]: eval('body.' + key.replaceAll('.', '?.')) }, key)
 
         if (has) {
-          merge.recursive(
-            fields,
-            flat.unflatten({
-              [key]: value
-            })
-          )
+          merge.recursive(fields, flat.unflatten({ [key]: value }))
         }
       } else {
         const { has, value } = getValueByBodyKey(body, key)
@@ -44,11 +35,11 @@ function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsIn
       for (const [_key, keysOrFormatter] of Object.entries(key)) {
         if (typeof keysOrFormatter === 'function') {
           fields[_key] = keysOrFormatter(body[_key], body)
-        } else if (Array.isArray(keysOrFormatter)) {
+        } else {
           const { has } = getValueByBodyKey(body, _key)
 
           if (has) {
-            fields[_key] = main(body[_key], keysOrFormatter)
+            fields[_key] = main(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter])
           }
         }
       }
@@ -60,12 +51,12 @@ function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsIn
 
 /**
  * GET-VALUE-BY-BODY-KEY
- * @param body {FieldsInterface}
+ * @param body {IFields}
  * @param key {string}
- * @return {ResultInterface}
+ * @return {IResult}
  */
-function getValueByBodyKey(body: FieldsInterface, key: string): ResultInterface {
-  const result: ResultInterface = {
+function getValueByBodyKey(body: IFields, key: string): IResult {
+  const result: IResult = {
     has: false,
     value: body[key]
   }

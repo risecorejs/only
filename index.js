@@ -7,22 +7,18 @@ const flat_1 = __importDefault(require("flat"));
 const lodash_1 = __importDefault(require("lodash"));
 /**
  * MAIN
- * @param body: {FieldsInterface},
- * @param keys: {(string | object)[]}
- * @return {null | FieldsInterface}
+ * @param body: {IFields},
+ * @param keys: {TKeys}
+ * @return {null | IFields}
  */
 function main(body, keys) {
     const fields = {};
     for (const key of keys) {
         if (typeof key === 'string') {
             if (key.includes('.')) {
-                const { has, value } = getValueByBodyKey({
-                    [key]: eval('body.' + key.replaceAll('.', '?.'))
-                }, key);
+                const { has, value } = getValueByBodyKey({ [key]: eval('body.' + key.replaceAll('.', '?.')) }, key);
                 if (has) {
-                    merge_1.default.recursive(fields, flat_1.default.unflatten({
-                        [key]: value
-                    }));
+                    merge_1.default.recursive(fields, flat_1.default.unflatten({ [key]: value }));
                 }
             }
             else {
@@ -37,10 +33,10 @@ function main(body, keys) {
                 if (typeof keysOrFormatter === 'function') {
                     fields[_key] = keysOrFormatter(body[_key], body);
                 }
-                else if (Array.isArray(keysOrFormatter)) {
+                else {
                     const { has } = getValueByBodyKey(body, _key);
                     if (has) {
-                        fields[_key] = main(body[_key], keysOrFormatter);
+                        fields[_key] = main(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter]);
                     }
                 }
             }
@@ -50,9 +46,9 @@ function main(body, keys) {
 }
 /**
  * GET-VALUE-BY-BODY-KEY
- * @param body {FieldsInterface}
+ * @param body {IFields}
  * @param key {string}
- * @return {ResultInterface}
+ * @return {IResult}
  */
 function getValueByBodyKey(body, key) {
     const result = {

@@ -1,9 +1,10 @@
-import { FieldsInterface } from './interfaces';
+import { IFields } from './interfaces';
+import { TKeys } from './types';
 export = main;
 /**
  * MAIN
- * @param body: {FieldsInterface},
- * @param keys: {(string | object)[]}
- * @return {null | FieldsInterface}
+ * @param body: {IFields},
+ * @param keys: {TKeys}
+ * @return {null | IFields}
  */
-declare function main(body: FieldsInterface, keys: (string | object)[]): null | FieldsInterface;
+declare function main(body: IFields, keys: TKeys): null | IFields;
