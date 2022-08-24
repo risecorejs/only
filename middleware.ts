@@ -1,6 +1,6 @@
 import express from 'express'
 
-import { TKeys } from './types/index'
+import { TKeys } from './types'
 import only from './index'
 
 export = main

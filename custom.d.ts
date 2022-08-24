@@ -1,7 +1,9 @@
-import { TKeys } from './types/index'
+import { TKeys } from './types'
 
-declare namespace Express {
-  export interface Request {
-    only(...keys: TKeys): any
+declare global {
+  namespace Express {
+    export interface Request {
+      only(...keys: TKeys): any
+    }
   }
 }
