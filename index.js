@@ -2,16 +2,17 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const merge_1 = __importDefault(require("merge"));
 const flat_1 = __importDefault(require("flat"));
 const lodash_1 = __importDefault(require("lodash"));
 /**
- * MAIN
+ * ONLY
  * @param body: {IFields},
  * @param keys: {TKeys}
  * @return {null | IFields}
  */
-function main(body, keys) {
+function default_1(body, keys) {
     const fields = {};
     for (const key of keys) {
         if (typeof key === 'string') {
@@ -36,7 +37,8 @@ function main(body, keys) {
                 else {
                     const { has } = getValueByBodyKey(body, _key);
                     if (has) {
-                        fields[_key] = main(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter]);
+                        const only = require('./index').default;
+                        fields[_key] = only(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter]);
                     }
                 }
             }
@@ -44,6 +46,7 @@ function main(body, keys) {
     }
     return lodash_1.default.isEmpty(fields) ? null : fields;
 }
+exports.default = default_1;
 /**
  * GET-VALUE-BY-BODY-KEY
  * @param body {IFields}
@@ -60,4 +63,3 @@ function getValueByBodyKey(body, key) {
     }
     return result;
 }
-module.exports = main;

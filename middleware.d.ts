@@ -1,7 +1,6 @@
 import express from 'express';
-export = main;
 /**
- * MAIN
+ * MIDDLEWARE
  * @return {express.Handler}
  */
-declare function main(): express.Handler;
+export default function (): express.Handler;

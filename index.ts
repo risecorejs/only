@@ -5,15 +5,13 @@ import _ from 'lodash'
 import { IFields, IResult } from './interfaces'
 import { TKeys } from './types'
 
-export = main
-
 /**
- * MAIN
+ * ONLY
  * @param body: {IFields},
  * @param keys: {TKeys}
  * @return {null | IFields}
  */
-function main(body: IFields, keys: TKeys): null | IFields {
+export default function (body: IFields, keys: TKeys): null | IFields {
   const fields: IFields = {}
 
   for (const key of keys) {
@@ -39,7 +37,9 @@ function main(body: IFields, keys: TKeys): null | IFields {
           const { has } = getValueByBodyKey(body, _key)
 
           if (has) {
-            fields[_key] = main(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter])
+            const only = require('./index').default
+
+            fields[_key] = only(body[_key], Array.isArray(keysOrFormatter) ? keysOrFormatter : [keysOrFormatter])
           }
         }
       }

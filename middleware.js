@@ -2,12 +2,13 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("./index"));
 /**
- * MAIN
+ * MIDDLEWARE
  * @return {express.Handler}
  */
-function main() {
+function default_1() {
     return function (req, res, next) {
         req.only = (...keys) => {
             if (Array.isArray(keys[0])) {
@@ -18,4 +19,4 @@ function main() {
         next();
     };
 }
-module.exports = main;
+exports.default = default_1;
