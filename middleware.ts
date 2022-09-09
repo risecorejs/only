@@ -1,7 +1,8 @@
 import express from 'express'
 
-import { TKeys } from './types'
 import only from './index'
+
+import { TKeys } from './types'
 
 /**
  * MIDDLEWARE
