@@ -10,12 +10,12 @@ import { TKeys } from './types'
  */
 export default function (): express.Handler {
   return function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    req.only = (...keys: TKeys) => {
+    req.only = (...keys: TKeys | [TKeys]) => {
       if (Array.isArray(keys[0])) {
         keys = keys[0]
       }
 
-      return only(req.body, keys)
+      return only(req.body, <TKeys>keys)
     }
 
     next()
@@ -25,7 +25,7 @@ export default function (): express.Handler {
 declare global {
   namespace Express {
     export interface Request {
-      only(...keys: TKeys | TKeys[]): any
+      only(...keys: TKeys | [TKeys]): any
     }
   }
 }
