@@ -15,7 +15,7 @@ export default function (): express.Handler {
         keys = keys[0]
       }
 
-      return only(req, keys)
+      return only(req.body, keys)
     }
 
     next()
@@ -25,7 +25,7 @@ export default function (): express.Handler {
 declare global {
   namespace Express {
     export interface Request {
-      only(...keys: TKeys): any
+      only(...keys: TKeys | TKeys[]): any
     }
   }
 }

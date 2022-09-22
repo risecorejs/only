@@ -8,7 +8,7 @@ export default function (): express.Handler;
 declare global {
     namespace Express {
         interface Request {
-            only(...keys: TKeys): any;
+            only(...keys: TKeys | TKeys[]): any;
         }
     }
 }

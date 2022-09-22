@@ -14,7 +14,7 @@ function default_1() {
             if (Array.isArray(keys[0])) {
                 keys = keys[0];
             }
-            return (0, index_1.default)(req, keys);
+            return (0, index_1.default)(req.body, keys);
         };
         next();
     };
