@@ -6,7 +6,10 @@ import * as declarations from '../declarations'
 
 import getValueFromBody from './utils/get-value-from-body'
 
-export default async function <A = any>(body: Record<string, any>, keys: declarations.TKeys<A>) {
+export default async function <A = any, V = null | Record<string, any>>(
+  body: Record<string, any>,
+  keys: declarations.TKeys<A>
+): Promise<V> {
   const values: Record<string, any> = {}
 
   for (const key of keys) {
@@ -41,5 +44,5 @@ export default async function <A = any>(body: Record<string, any>, keys: declara
     }
   }
 
-  return _.isEmpty(values) ? null : values
+  return (_.isEmpty(values) ? null : values) as V
 }
