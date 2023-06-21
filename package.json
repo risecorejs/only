@@ -2,13 +2,18 @@
   "name": "@risecorejs/only",
   "version": "3.0.6",
   "description": "",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "keywords": [],
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch",
+    "build": "rimraf dist && tsc",
+    "prepare": "npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/risecorejs/only.git"
   },
-  "author": "Amenov Abdulsalam <risecorejs@gmail.com>",
+  "author": "Amenov Abdulsalam <amenov.abdulsalam@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/risecorejs/only/issues"

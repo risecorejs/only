@@ -1,1 +1,1 @@
-# Risecorejs/Only
+# Документация пакета @risecorejs/only
